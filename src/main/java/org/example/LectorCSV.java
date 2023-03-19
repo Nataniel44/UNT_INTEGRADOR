@@ -23,11 +23,15 @@ public class LectorCSV {
         Equipo equipo = null;
         if (scanner.hasNextLine()) {
             String[] datos = scanner.nextLine().split(";");
-//            equipo = new Equipo();
+            equipo = new Equipo();
             equipo.setIdEquipo1(datos[0]);
             equipo.setNombre(datos[1]);
             equipo.setDescripcion(datos[2]);
             equipo.setGolEquipo1(datos[3]);
+            equipo.setGolEquipo2(datos[4]);
+            equipo.setIdEquipo2(datos[5]);
+            equipo.setNombre1(datos[6]);
+            equipo.setDescripcion2(datos[7]);
             // ... y así sucesivamente para cada columna que desees guardar
             lineaActual++;
         }

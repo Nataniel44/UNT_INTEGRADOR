@@ -5,7 +5,8 @@ public class Pronostico {
     private Equipo equipo;
     private ResultadoEnum resultado;
 
-    public Pronostico() {
+    private void Pronostico() {
+
     }
 
 }
