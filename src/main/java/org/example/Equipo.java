@@ -41,4 +41,11 @@ public class Equipo {
         this.golEquipo1 = golEquipo1;
         return this;
     }
+
+    public Equipo(String nombre, String idEquipo1, String descripcion, String golEquipo1) {
+        this.nombre = nombre;
+        this.idEquipo1 = idEquipo1;
+        this.descripcion = descripcion;
+        this.golEquipo1 = golEquipo1;
+    }
 }
