@@ -1,7 +1,17 @@
 package org.example;
+
+import java.io.FileNotFoundException;
+import java.util.Arrays;
+
 public class Ronda {
-    String nro;
+    private String nro;
     private Partido[] partidos;
+
+    public Ronda(String nro, Partido[] partidos) {
+        this.nro = nro;
+        this.partidos = partidos;
+    }
+
     public String getNro() {
         return nro;
     }
@@ -12,12 +22,12 @@ public class Ronda {
     public Partido[] getPartidos() {
         return partidos;
     }
-    public Ronda setPartidos(Partido[] partidos) {
+    public Ronda setPartidos(Partido[] partidos) throws FileNotFoundException {
         this.partidos = partidos;
         return this;
     }
-    public Ronda(String nro, Partido[] partidos) {
-        this.nro = nro;
-        this.partidos = partidos;
-    }
+public int puntos(){
+
+       return puntos();
+}
 }
