@@ -1,39 +1,47 @@
 package org.example;
+import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvValidationException;
 
-import javax.print.DocFlavor;
-import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+// -------------------------------------PronosticoDeportivo-------------------------------------UTN-------------------------------------ArgentinaPrograma4.0-------------------------------------//
+    public class Main {
+        public static void main(String[] args) throws IOException, CsvValidationException {
+            String fileName = "C:\\Users\\Nata44\\Desktop\\UTN\\TPintegrador\\123.csv";
+            CSVReader reader = new CSVReader(new FileReader(fileName));
+            String[] line;
+            if ((line = reader.readNext()) != null) {
+                // Crear objeto Equipo a partir de la línea leída
+                Equipo equipo1 = new Equipo(Integer.parseInt(line[0]), // id
+                        line[1], // nombreEquipo
+                        Integer.parseInt(line[3])); // golesEquipo1
+                Equipo equipo2 = new Equipo(
+                        Integer.parseInt(line[5]),
+                        line[5].toString(),
+                        Integer.parseInt(line[4]));
+                if ((line = reader.readNext()) != null) {
+                    // Crear objeto Equipo a partir de la línea leída
+                    Equipo equipo3 = new Equipo(
+                            Integer.parseInt(line[0]), // id
+                            line[1], // equipoLocal
+                            Integer.parseInt(line[3])); // tipoEquipoLocal
+                    Equipo equipo4 = new Equipo(
+                            Integer.parseInt(line[5]),
+                            line[6],
+                            Integer.parseInt(line[4]));
 
-public class Main {
-    public static void main(String[] args) {
-        try {
-            LectorCSV lector = new LectorCSV("C:\\Users\\Nata44\\Desktop\\UTN\\TPintegrador\\resultados.csv");
-            // Leer la primera fila
-//            Partido partido1 = lector.leerLinea();
-            Equipo equipo1 = lector.leerLinea();
-            System.out.println("id1: " + equipo1.getIdEquipo1() +"\t"+"Equipo1: "+ equipo1.getNombre()+"\t"+ equipo1.getDescripcion() +"\t"+ "Goles1: "+equipo1.getGolEquipo1()+"\t"+"|"+"\t"+
-                    "id2: "+equipo1.getGolEquipo2() +"\t"+"gol2: "+ equipo1.getIdEquipo2() +"\t"+"equipo: "+ equipo1.getNombre1() +"\t"+ equipo1.getDescripcion2());
+                    //crea la el objeto partido1 que es Polonia - Mexico
+                    Partido partido2 = new Partido(equipo3, equipo4, equipo3.getGoles(), equipo4.getGoles());
+                    System.out.println(partido2.resultado());
+                    }
+                //---------------------------------------------------------------------------------------//
+                //crea la el objeto partido1 que es Argentina - Arabia Saudita
+                Partido partido1 = new Partido(equipo1, equipo2, equipo1.getGoles(), equipo2.getGoles());
 
-//            Equipo equipo3 = lector.leerLinea();
-//            System.out.println("id1: " + equipo3.getIdEquipo1() +"\t"+"Equipo1: "+ equipo3.getNombre()+"\t"+ equipo3.getDescripcion() +"\t"+ "Goles1: "+equipo3.getGolEquipo1()+"\t"+"|"+"\t"+
-//                    "id2: "+equipo3.getGolEquipo2() +"\t"+"gol2: "+ equipo3.getIdEquipo2() +"\t"+"equipo: "+ equipo3.getNombre1() +"\t"+ equipo3.getDescripcion2());
+                }
+                reader.close();
 
-
-            Partido partido1 = new Partido();
-            partido1.getEquipo1();
-            partido1.getEquipo2();
-            partido1.getGolesEquipo1();
-            partido1.getGolesEquipo2();
-
-
-
-
-            // ... y así sucesivamente para cada fila que desees leer
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-
+            }
         }
-    }
-}
-
 
 
