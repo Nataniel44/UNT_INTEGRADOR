@@ -64,6 +64,7 @@ public class Main {
             Pronostico pronostico = new Pronostico(partido, equipo, resultados);
             puntos += pronostico.puntos();
         }
+        //---------------------------------------------------------------------------------------//
         System.out.println("-----------------------------------------------------------------");
         System.out.print("los puntos obtenido son: " + puntos);
         System.out.println(" ");
