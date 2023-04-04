@@ -1,9 +1,9 @@
 package org.example;
 
 public class Pronostico {
-    private Partido partido;
-    private Equipo equipo;
-    private ResultadoEnum resultado;
+    private final Partido partido;
+    private final Equipo equipo;
+    private final ResultadoEnum resultado;
 
     public Pronostico(Partido partido, Equipo equipo, ResultadoEnum resultado) {
         super();

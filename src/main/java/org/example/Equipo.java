@@ -1,7 +1,5 @@
 package org.example;
 
-import com.opencsv.bean.CsvBindByPosition;
-
 public class Equipo {
     private String nombre;
     private String Descripcion;
