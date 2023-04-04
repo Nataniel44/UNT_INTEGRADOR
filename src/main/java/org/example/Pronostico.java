@@ -6,6 +6,7 @@ public class Pronostico {
     private ResultadoEnum resultado;
 
     public Pronostico(Partido partido, Equipo equipo, ResultadoEnum resultado) {
+        super();
         this.partido = partido;
         this.equipo = equipo;
         this.resultado = resultado;
@@ -15,30 +16,19 @@ public class Pronostico {
         return partido;
     }
 
-    public Pronostico setPartido(Partido partido) {
-        this.partido = partido;
-        return this;
-    }
-
     public Equipo getEquipo() {
         return equipo;
-    }
-
-    public Pronostico setEquipo(Equipo equipo) {
-        this.equipo = equipo;
-        return this;
     }
 
     public ResultadoEnum getResultado() {
         return resultado;
     }
 
-    public Pronostico setResultado(ResultadoEnum resultado) {
-        this.resultado = resultado;
-        return this;
-    }
-    public int puntos(){
-        
-        return puntos();
+    public int puntos() {
+        if (this.partido == null) {
+            throw new IllegalStateException("El partido no está inicializado");
+        }
+        ResultadoEnum resultadoReal = this.partido.resultado(this.equipo);
+        return (this.resultado == resultadoReal) ? 1 : 0;
     }
 }
