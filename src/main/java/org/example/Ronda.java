@@ -1,12 +1,8 @@
 package org.example;
-
 import java.io.FileNotFoundException;
-import java.util.Arrays;
-
 public class Ronda {
     private String nro;
-    private Partido[] partidos;
-
+    private  Partido[] partidos;
     public Ronda(String nro, Partido[] partidos) {
         this.nro = nro;
         this.partidos = partidos;
@@ -29,7 +25,6 @@ public class Ronda {
         this.partidos = partidos;
         return this;
     }
-
     public int puntos() {
 
         return puntos();
