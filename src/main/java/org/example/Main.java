@@ -15,23 +15,22 @@ public class Main {
         String fileName = args[0];
         Collection<Partido> partidos = new ArrayList<Partido>();
         Collection<Ronda> rondas = new ArrayList<Ronda>();
-//        HashMap<String, Persona> personas = new HashMap<>();
         CSVReader reader = new CSVReader(new FileReader(fileName));
         int i = 1;
 
         //Resultaodos
         for (String[] line : reader) {
-            System.out.print("el resultado del partido " + i + " fue: ");
             Equipo equipo1 = new Equipo(line[2]);
             Equipo equipo2 = new Equipo(line[7]);
             Partido partido = new Partido(equipo1, equipo2);
             partido.setGolesEquipo1(Integer.parseInt(line[4]));
             partido.setGolesEquipo2(Integer.parseInt(line[5]));
             partidos.add(partido);
-            System.out.println(equipo1.getNombre() + " " + partido.getGolesEquipo1() + " " + partido.getGolesEquipo2() + " " + equipo2.getNombre());
-            i++;
             Ronda ronda = new Ronda(line[0], partidos.toArray(new Partido[0]));
             rondas.add(ronda);
+            System.out.print("el resultado del partido " + i +" en la ronda " + ronda.getNro() +" fue: ");
+            System.out.println(equipo1.getNombre() + " " + partido.getGolesEquipo1() + " - " + partido.getGolesEquipo2() + " " + equipo2.getNombre());
+            i++;
         }
         System.out.println("-----------------------------------------------------------------");
         //---------------------------------------------------------------------------------------//
@@ -79,6 +78,7 @@ public class Main {
             }
             if ("X".equals(line[4])) {
                 System.out.println(persona.getNombre() + " aposto por un empate entre: " + equipo1.getNombre() + " y " + equipo2.getNombre());
+                equipo=equipo1;
                 resultado = ResultadoEnum.empate;
             }
             if ("X".equals(line[5])) {
@@ -94,7 +94,6 @@ public class Main {
 
             // Calcular los puntajes para cada persona y mostrar los resultados
             System.out.println("-----------------------------------------------------------------");
-
             for (Persona persona : personas.values()) {
                 int puntos = persona.getPuntaje();
                 System.out.println(persona.getNombre() + " obtuvo " + puntos + " puntos.");
