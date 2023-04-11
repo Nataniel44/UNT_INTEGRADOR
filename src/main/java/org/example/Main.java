@@ -20,11 +20,21 @@ public class Main {
 
         //Resultaodos
         for (String[] line : reader) {
+            if (line.length != 9) {
+                System.out.println("Error: línea " + i + " tiene una cantidad incorrecta de campos");
+                continue;
+            }
             Equipo equipo1 = new Equipo(line[2]);
             Equipo equipo2 = new Equipo(line[7]);
             Partido partido = new Partido(equipo1, equipo2);
-            partido.setGolesEquipo1(Integer.parseInt(line[4]));
-            partido.setGolesEquipo2(Integer.parseInt(line[5]));
+
+            try {
+                partido.setGolesEquipo1(Integer.parseInt(line[4]));
+                partido.setGolesEquipo2(Integer.parseInt(line[5]));
+            } catch (NumberFormatException e) {
+                System.out.println("Error: línea " + i + " tiene un valor de goles no válido");
+                continue;
+            }
             partidos.add(partido);
             Ronda ronda = new Ronda(line[0], partidos.toArray(new Partido[0]));
             rondas.add(ronda);
@@ -72,17 +82,17 @@ public class Main {
             Equipo equipo = null;
             ResultadoEnum resultado = null;
             if ("X".equals(line[3])) {
-                System.out.println(persona.getNombre() + " aposto por: " + equipo1.getNombre());
+//                System.out.print(persona.getNombre() + " aposto por: " + equipo1.getNombre());
                 equipo = equipo1;
                 resultado = ResultadoEnum.ganador;
             }
             if ("X".equals(line[4])) {
-                System.out.println(persona.getNombre() + " aposto por un empate entre: " + equipo1.getNombre() + " y " + equipo2.getNombre());
+//                System.out.print(persona.getNombre() + " aposto por un empate entre: " + equipo1.getNombre() + " y " + equipo2.getNombre());
                 equipo=equipo1;
                 resultado = ResultadoEnum.empate;
             }
             if ("X".equals(line[5])) {
-                System.out.println(persona.getNombre() + " aposto por: " + equipo2.getNombre());
+//                System.out.print(persona.getNombre() + " aposto por: " + equipo2.getNombre());
                 equipo = equipo2;
                 resultado = ResultadoEnum.ganador;
             }
