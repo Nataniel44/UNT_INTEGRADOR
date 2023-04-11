@@ -82,17 +82,17 @@ public class Main {
             Equipo equipo = null;
             ResultadoEnum resultado = null;
             if ("X".equals(line[3])) {
-//                System.out.print(persona.getNombre() + " aposto por: " + equipo1.getNombre());
+                System.out.print(persona.getNombre() + " aposto por: " + equipo1.getNombre());
                 equipo = equipo1;
                 resultado = ResultadoEnum.ganador;
             }
             if ("X".equals(line[4])) {
-//                System.out.print(persona.getNombre() + " aposto por un empate entre: " + equipo1.getNombre() + " y " + equipo2.getNombre());
+                System.out.print(persona.getNombre() + " aposto por un empate entre: " + equipo1.getNombre() + " y " + equipo2.getNombre());
                 equipo=equipo1;
                 resultado = ResultadoEnum.empate;
             }
             if ("X".equals(line[5])) {
-//                System.out.print(persona.getNombre() + " aposto por: " + equipo2.getNombre());
+                System.out.print(persona.getNombre() + " aposto por: " + equipo2.getNombre());
                 equipo = equipo2;
                 resultado = ResultadoEnum.ganador;
             }
