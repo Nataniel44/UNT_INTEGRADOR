@@ -25,8 +25,4 @@ public class Ronda {
         this.partidos = partidos;
         return this;
     }
-    public int puntos() {
-
-        return puntos();
-    }
 }

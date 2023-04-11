@@ -1,29 +1,32 @@
 package org.example;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Persona {
     private String id;
     private String nombre;
+    private List<Pronostico> pronosticos;
 
-    public String getId() {
-        return id;
-    }
-
-    public Persona setId(String id) {
+    public Persona(String id, String nombre) {
         this.id = id;
-        return this;
+        this.nombre = nombre;
+        this.pronosticos = new ArrayList<>();
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public Persona setNombre(String nombre) {
-        this.nombre = nombre;
-        return this;
+    public void agregarPronostico(Pronostico pronostico) {
+        pronosticos.add(pronostico);
     }
 
-    public Persona(String id, String nombre) {
-        this.id = id;
-        this.nombre = nombre;
+    public int getPuntaje() {
+        int puntos = 0;
+        for (Pronostico pronostico : pronosticos) {
+            puntos += pronostico.getPuntos();
+        }
+        return puntos;
     }
 }

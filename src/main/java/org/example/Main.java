@@ -4,10 +4,7 @@ import com.opencsv.CSVReader;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.*;
 
 // -------------------------------------PronosticoDeportivo-------------------------------------UTN-------------------------------------ArgentinaPrograma4.0-------------------------------------//
 public class Main {
@@ -15,7 +12,7 @@ public class Main {
         String fileName = args[0];
         Collection<Partido> partidos = new ArrayList<Partido>();
         Collection<Ronda> rondas = new ArrayList<Ronda>();
-        HashMap<String, Persona> personas = new HashMap<>();
+//        HashMap<String, Persona> personas = new HashMap<>();
         CSVReader reader = new CSVReader(new FileReader(fileName));
         int i = 1;
 
@@ -35,59 +32,74 @@ public class Main {
         }
         System.out.println("-----------------------------------------------------------------");
         //---------------------------------------------------------------------------------------//
-        String pronosticos = args[1];
-        int puntos = 0; // total puntos pesona
-        CSVReader reader1 = new CSVReader(new FileReader(pronosticos));
-        int i1 = 1;
-        for (String[] line2 : reader1) {
-            i1++;
+        //---------------------------------------------------------------------------------------//
+        String pronosticosFile = args[1];
+        Map<String, Persona> personas = new HashMap<>();
+        // Leer el archivo de pronósticos
+        CSVReader reader2 = new CSVReader(new FileReader(pronosticosFile));
+        for (String[] line : reader2) {
+            String personaId = line[0];
+            String personaNombre = line[1];
+            Equipo equipo1 = new Equipo(line[2]);
+            Equipo equipo2 = new Equipo(line[6]);
+            Partido partido = null;
 
-            Equipo equipo1 = new Equipo(line2[2]);
-            Equipo equipo2 = new Equipo(line2[6]);
-            Partido partido = new Partido(equipo1, equipo2);
-            Persona persona = new Persona(line2[0], line2[1]);
-            String clave = persona.getId() + persona.getNombre();
+            // Buscar el partido correspondiente a los equipos en el archivo de resultados
+            for (Partido partidoCol : partidos) {
+                if (partidoCol.getEquipo1().getNombre().equals(equipo1.getNombre())
+                        && partidoCol.getEquipo2().getNombre().equals(equipo2.getNombre())) {
+                    partido = partidoCol;
+                    break;
+                }
+            }
 
-            if (!personas.containsKey(clave)) {
-                personas.put(clave, persona);
-                System.out.println(persona.getNombre());
+            // Si no se encontró el partido correspondiente, pasar al siguiente pronóstico
+            if (partido == null) {
+                continue;
+            }
 
-                for (Partido partidoCol : partidos) {
-                    if (partidoCol.getEquipo1().getNombre(
-                    ).equals(equipo1.getNombre())
-                            && partidoCol.getEquipo2().getNombre(
-                    ).equals(equipo2.getNombre())) {
-                        partido = partidoCol;
-                    }
-                }
-                Equipo equipo = null;
-                ResultadoEnum resultados = null;
-                if ("X".equals(line2[3])) {
-                    System.out.println("usted aposto por: " + equipo1.getNombre());
-                    equipo = equipo1;
-                    resultados = ResultadoEnum.ganador;
-                }
-                if ("X".equals(line2[4])) {
-                    System.out.println("usted aposto por un empate entre: " + equipo1.getNombre() + " y " + equipo2.getNombre());
-                    equipo = equipo1;
-                    resultados = ResultadoEnum.empate;
-                }
-                if ("X".equals(line2[5])) {
-                    System.out.println("usted aposto por: " + equipo2.getNombre());
-                    equipo = equipo1;
-                    resultados = ResultadoEnum.perdedor;
-                }
+            // Obtener o crear la persona correspondiente al pronóstico
+            String personaKey = personaId + personaNombre;
+            Persona persona = personas.get(personaKey);
+            if (persona == null) {
+                persona = new Persona(personaId, personaNombre);
+                personas.put(personaKey, persona);
+            }
 
-                Pronostico pronostico = new Pronostico(partido, equipo, resultados);
-                puntos += pronostico.puntos();
+            // Realizar el pronóstico
+            Equipo equipo = null;
+            ResultadoEnum resultado = null;
+            if ("X".equals(line[3])) {
+                System.out.println(persona.getNombre() + " aposto por: " + equipo1.getNombre());
+                equipo = equipo1;
+                resultado = ResultadoEnum.ganador;
+            }
+            if ("X".equals(line[4])) {
+                System.out.println(persona.getNombre() + " aposto por un empate entre: " + equipo1.getNombre() + " y " + equipo2.getNombre());
+                resultado = ResultadoEnum.empate;
+            }
+            if ("X".equals(line[5])) {
+                System.out.println(persona.getNombre() + " aposto por: " + equipo2.getNombre());
+                equipo = equipo2;
+                resultado = ResultadoEnum.ganador;
+            }
+
+            Pronostico pronostico = new Pronostico(partido, persona, equipo, resultado);
+            persona.agregarPronostico(pronostico);
             }
             //---------------------------------------------------------------------------------------//
+
+            // Calcular los puntajes para cada persona y mostrar los resultados
             System.out.println("-----------------------------------------------------------------");
-            System.out.print("los puntos obtenido son: " + puntos);
-            System.out.println(" ");
+
+            for (Persona persona : personas.values()) {
+                int puntos = persona.getPuntaje();
+                System.out.println(persona.getNombre() + " obtuvo " + puntos + " puntos.");
+            System.out.println("-----------------------------------------------------------------");
         }
     }
 }
+
 
 
 

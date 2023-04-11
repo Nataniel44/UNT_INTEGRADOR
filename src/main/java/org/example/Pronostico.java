@@ -1,30 +1,21 @@
 package org.example;
 
 public class Pronostico {
-    private final Partido partido;
-    private final Equipo equipo;
-    private final ResultadoEnum resultado;
+    private Partido partido;
+    private Persona persona;
+    private Equipo equipo;
+    private ResultadoEnum resultado;
 
-    public Pronostico(Partido partido, Equipo equipo, ResultadoEnum resultado) {
+    public Pronostico(Partido partido, Persona persona, Equipo equipo, ResultadoEnum resultado) {
         super();
         this.partido = partido;
+        this.persona = persona;
         this.equipo = equipo;
         this.resultado = resultado;
     }
+    public int getPuntos() {
+        int puntos = 0;
 
-    public Partido getPartido() {
-        return partido;
-    }
-
-    public Equipo getEquipo() {
-        return equipo;
-    }
-
-    public ResultadoEnum getResultado() {
-        return resultado;
-    }
-
-    public int puntos() {
         if (this.partido == null) {
             throw new IllegalStateException("El partido no está inicializado");
         }
@@ -32,3 +23,4 @@ public class Pronostico {
         return (this.resultado == resultadoReal) ? 1 : 0;
     }
 }
+

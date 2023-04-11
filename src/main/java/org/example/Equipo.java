@@ -7,12 +7,6 @@ public class Equipo {
     public String getNombre() {
         return nombre;
     }
-
-    public Equipo setNombre(String nombre) {
-        this.nombre = nombre;
-        return this;
-    }
-
     public Equipo(String nombre) {
         this.nombre = nombre;
 
